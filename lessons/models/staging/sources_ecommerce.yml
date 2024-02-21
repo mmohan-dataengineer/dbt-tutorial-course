@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: thelook_ecommerce # Generally use this if different from schema else it will be same as schema
+    database: bigquery-public-data
+    schema: thelook_ecommerce # This is same as schema
+    tables:
+      - name: inventory_items
+      - name: order_items
+      - name: orders
+      - name: products
+      - name: users
