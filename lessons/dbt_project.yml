@@ -40,4 +40,5 @@ models:
     +hours_to_expiration: 168
 tests:
   lessons:
-    +severity: warn # All tests in our lesson project default to warn
+    #+severity: warn # All tests in our lesson project default to warn
+    +severity: error # default
