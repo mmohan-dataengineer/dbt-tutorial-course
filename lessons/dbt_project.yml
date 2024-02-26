@@ -1,4 +1,3 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
@@ -32,12 +31,24 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   lessons:
+    staging:
+     +tags: ['staging']
+    intermediate:
+     +tags: ['intermediate']
+    marts:
+     +tags: ['mart']
     +materialized: table # Default all SQL models to be materialised as tables
     +persist_docs: # Writes all of our column descriptions into BigQuery!
       relation: true
       columns: true
     # Table deletes 168 hours (7 days) after creation
-    +hours_to_expiration: 168
+    #+hours_to_expiration: 168
+    # Table deletes 168 hours (7 days) after creation (or 1 hour if it's a CI test)
+    +hours_to_expiration: |
+      {% if target.name == 'test' %} 1
+      {% else %} 168
+      {% endif %}
+
 tests:
   lessons:
     #+severity: warn # All tests in our lesson project default to warn

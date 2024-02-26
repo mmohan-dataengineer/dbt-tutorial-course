@@ -1,3 +1,4 @@
+--{{ config(tags=['intermediate']) }}
 WITH products AS (
 	SELECT
 		product_id,

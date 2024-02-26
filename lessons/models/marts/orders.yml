@@ -3,6 +3,12 @@ version: 2
 models:
   - name: orders
     description: "Table of order level information"
+    #+group: sales
+    config:
+      group: sales
+    #access: protected #Default
+    #access: private
+
     columns:
 
     # Columns from stg_ecommerce__orders

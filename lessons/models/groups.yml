@@ -1,0 +1,9 @@
+version: 2
+groups:
+  - name: sales
+    owner:
+      email: sales@my-company.com
+
+  - name: marketing
+    owner:
+      email: marketing@my-company.com

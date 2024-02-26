@@ -1,0 +1,23 @@
+lessons:
+  target: dev
+  outputs:
+    dev:
+      dataset: dbt_ecommerce
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: dbt-with-bigquery-learning
+      threads: 60
+      type: bigquery
+    testing:
+      dataset: dbt_ecommerce_testing
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: dbt-with-bigquery-learning
+      threads: 60
+      type: bigquery

@@ -1,4 +1,4 @@
-#
+{#
 	This test is basically a "not_null" and "unique"
 	rolled into one.
 

@@ -16,7 +16,7 @@ SELECT
 FROM source
 */
 
-
+--{{ config(tags=['staging'])}}
 WITH source AS (
 	SELECT *
 	FROM {{ source('thelook_ecommerce', 'orders') }}

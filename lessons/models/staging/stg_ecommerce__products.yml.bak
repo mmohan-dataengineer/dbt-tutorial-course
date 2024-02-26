@@ -1,4 +1,5 @@
 version: 2
+
 models:
   - name: stg_ecommerce__products
     description: "Table of products on the online store"
@@ -7,12 +8,18 @@ models:
         tests:
           - primary_key:
               severity: error
+              where: "department = 'Men'"
+
       - name: cost
         description: "How much the product cost the business to purchase"
         tests:
-          - not_null
+          - not_null:
+             severity: error
+             warn_if: ">1000"
+             error_if: ">10"
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
+
       - name: retail_price
         description: "How much the product retails for on the online store"
         tests:
@@ -20,7 +27,14 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
           - dbt_utils.expression_is_true:
+              name: retail_price_greater_than_cost
               expression: ">= cost"
+              where: "retail_price IS NOT NULL"
+              #The above is same as below
+              #config:
+                #where: "retail_price IS NOT NULL"
+
+
       - name: department
         description: "Whether the item is Menswear or Womenswear"
         tests:
@@ -28,21 +42,10 @@ models:
           - accepted_values:
               values:
                 - "Men"
-                - "Women"
+                #- "Women"
               # quote defaults to true, but this just shows how you could set it to
               # false if you wanted to have non-string values (e.g. numbers or a TRUE/FALSE column)
               quote: true
-      - name: brand
-
-    latest_version: 2
-    versions:
-      - v: 1
-        columns:
-          - include: all
-            exclude: [brand]
-      - v: 2
-        columns:
-          - include: all
-        # Makes this table stays as stg_ecommerce__products in our database!
-        config:
-          alias: stg_ecommerce__products
+              severity: error
+              warn_if: ">0" # This will get executed.
+              error_if: ">1"
